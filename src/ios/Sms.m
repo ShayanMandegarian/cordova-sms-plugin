@@ -4,7 +4,7 @@
 @synthesize callbackID;
 
 - (CDVPlugin *)initWithWebView:(UIWebView *)theWebView {
-    self = (Sms *)[super initWithWebView:theWebView];
+    self = (Sms *)[super init];
     return self;
 }
 
@@ -105,14 +105,14 @@
         NSMutableArray *recipients = [self parseRecipients:[command.arguments objectAtIndex:0]];
         // parse the attachments
         NSArray *attachments = [options objectForKey:@"attachments"];
-            
+
         // initialize the composer
         MFMessageComposeViewController *composeViewController = [[MFMessageComposeViewController alloc] init];
         composeViewController.messageComposeDelegate = self;
 
         // add recipients
         [composeViewController setRecipients:recipients];
-        
+
         // append the body to the composer
         if ((id)body != [NSNull null]) {
             [composeViewController setBody:body];
@@ -124,7 +124,7 @@
                 CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MMS_NOT_AVAILABLE"];
                 return [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
             }
-            
+
             for (id attachment in attachments) {
                 NSURL *file = [self getFile:attachment];
                 if (file != nil) {
@@ -136,7 +136,7 @@
         // fire the composer
         [self.viewController presentViewController:composeViewController animated:YES completion:nil];
     }];
-    
+
 }
 
 #pragma mark - MFMessageComposeViewControllerDelegate Implementation
@@ -145,7 +145,7 @@
     // Notifies users about errors associated with the interface
     CDVCommandStatus* status = CDVCommandStatus_ERROR;
     NSString* message = @"";
-    
+
     switch(result) {
         case MessageComposeResultCancelled:
             message = @"CANCELLED";
@@ -161,12 +161,12 @@
             message = @"UNKNOWN_ERROR";
             break;
     }
-    
-    [self.viewController dismissViewControllerAnimated:YES completion:nil];
-    
+
+    [self.viewController dismissViewControllerAnimated:NO completion:nil];
+
     // clean up stored files
     [self cleanupStoredFiles];
-        
+
     // send the result
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:status messageAsString:message];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];

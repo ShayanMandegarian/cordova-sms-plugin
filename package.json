@@ -1,0 +1,19 @@
+{
+  "name": "cordova-sms-plugin",
+  "version": "1.0.0",
+  "description": "Cross-platform plugin for Cordova / PhoneGap to to easily send SMS. Available for **Android**, **iOS**, and **Windows Phone 8**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cordova-sms/cordova-sms-plugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cordova-sms/cordova-sms-plugin/issues"
+  },
+  "homepage": "https://github.com/cordova-sms/cordova-sms-plugin#readme"
+}
